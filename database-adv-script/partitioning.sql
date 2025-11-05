@@ -1,10 +1,14 @@
-/* Drop existing partitioning if any */
-ALTER TABLE bookings
-REMOVE PARTITIONING;
+/* Re-create Bookings Table with Partitioning by YEAR(start_date) */
 
+DROP TABLE IF EXISTS bookings;
 
-/* Partition Bookings Table by YEAR(start_date) */
-ALTER TABLE bookings
+CREATE TABLE bookings (
+    id INT PRIMARY KEY,
+    user_id INT,
+    property_id INT,
+    start_date DATE,
+    end_date DATE
+)
 PARTITION BY RANGE (YEAR(start_date)) (
     PARTITION p2021 VALUES LESS THAN (2022),
     PARTITION p2022 VALUES LESS THAN (2023),
@@ -14,14 +18,13 @@ PARTITION BY RANGE (YEAR(start_date)) (
 );
 
 
-/* Query to test performance on a date range */
+/* Test Performance of Partitioned Table */
 EXPLAIN ANALYZE
 SELECT *
 FROM bookings
 WHERE start_date BETWEEN '2024-01-01' AND '2024-12-31';
 
 
-/* Another performance test on exact match */
 EXPLAIN ANALYZE
 SELECT *
 FROM bookings
