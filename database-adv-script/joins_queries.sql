@@ -27,6 +27,7 @@ SELECT
 FROM properties
 LEFT JOIN reviews
     ON properties.id = reviews.property_id;
+ORDER BY properties.id;
 
 
 /* 
@@ -58,3 +59,4 @@ SELECT
 FROM users
 RIGHT JOIN bookings
     ON users.id = bookings.user_id;
+ORDER BY user_id, booking_id;
