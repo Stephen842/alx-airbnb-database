@@ -32,4 +32,6 @@ The subquery depends on each user row — executed repeatedly.
 Uses `COUNT()` and `GROUP BY` to summarize user booking activity.
 
 ### Ranking Properties
-Uses `RANK()` window function to sort properties by popularity (bookings).
+Uses `RANK()` and 'ROW_NUMBER()' window function to sort properties by popularity (bookings).
+- ROW_NUMBER(): always generates a unique ordering
+- RANK(): groups tied values under the same rank
