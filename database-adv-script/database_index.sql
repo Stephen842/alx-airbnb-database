@@ -13,3 +13,15 @@ ON bookings(user_id);
 -- Index on bookings.property_id for faster property-bookings lookup
 CREATE INDEX idx_bookings_property
 ON bookings(property_id);
+
+-- Query before & after indexing to verify performance impact
+EXPLAIN ANALYZE
+SELECT *
+FROM bookings
+WHERE user_id = 5;
+
+EXPLAIN ANALYZE
+SELECT b.*, p.name
+FROM bookings b
+JOIN properties p ON b.property_id = p.id
+ORDER BY b.created_at DESC;
